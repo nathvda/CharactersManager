@@ -39,7 +39,6 @@ const NewThread = () => {
             const data = await res.data;
 
             setMuses(data);
-            console.log(data);
 
         } catch (error) {
             console.log(error);

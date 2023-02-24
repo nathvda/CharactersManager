@@ -5,35 +5,36 @@ import { useParams } from 'react-router-dom';
 const DisplayCharacter = () => {
     const { id } = useParams(); 
     const [data, setData] = useState([]);
-    const [char, setChar] = useState([]);
+    const [char, setChar] = useState();
+    const [loading, setLoading] = useState(false);
 
-    console.log("composant monté");
+    function deleteThisMuse(smt){
+        axios.delete(`http://localhost:8787/characters/${smt}/delete`)
+        .then(res => console.log(res));
+    }
 
     useEffect( () =>   
     {
 
     setChar(id);
 
-    async function getMuse() {
+    setLoading(true);
 
-        console.log("function launched");
+    async function getMuse() {
     
             try {
-    
-                console.log("fetching data");
-    
+
         const res = await axios.get(`http://localhost:8787/characters/${id}`);
         const idk = await res.data;
     
         setData(idk);
-        console.log(idk);
+        setLoading(false);
         
             }
             catch (error){
                 console.log(error);
             }
     
-            console.log("end of function");
         
     }
 
@@ -41,16 +42,28 @@ const DisplayCharacter = () => {
 
 }, [id]);
 
-
+if(loading === true) return (
+    <>
+        <div className="profile">
+        <h3 className="loader">Loading</h3>
+        </div>
+    </>
+);
 
     return (
         <>
         <div className="profile">
-        {id}
         {
-            data.map((p) => 
-            p.nom
-            )
+        
+        data.map((a, index) =><div key={index}>
+            <button onClick={(e) => deleteThisMuse(char)}>x</button>
+            <h4>{a.nom}</h4>
+        <h5>{a.prenom}</h5>
+        <p>{a.mbti}</p>
+        <p>{a.height} cm</p>
+        <p>{a.weight} kg</p>
+        <div className="age"><span>age: {a.age}</span></div></div>)           
+
         }</div> 
         {console.log('unmounting')}
         </>

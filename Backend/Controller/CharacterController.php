@@ -55,4 +55,8 @@ class CharacterController extends CharactersModel{
 
     }
 
+    public function eraseCharacter($id){
+        (new CharactersModel)->deleteCharacter($id);
+    }
+
 }

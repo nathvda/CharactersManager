@@ -7,7 +7,7 @@ class CharactersModel extends DbConnect{
 
     public function getCharacters(){
 
-        $sql = "SELECT *, personnages.*, personnages.id AS character_id FROM personnages INNER JOIN genders ON personnages.gender_id = genders.id INNER JOIN forums ON personnages.forum_id = forums.id";
+        $sql = "SELECT *, personnages.*, personnages.id AS character_id, YEAR(CURDATE()) - personnages.age AS age, mbti.type AS mbti FROM personnages INNER JOIN genders ON personnages.gender_id = genders.id INNER JOIN forums ON personnages.forum_id = forums.id LEFT JOIN mbti ON personnages.mbti_id = mbti.type";
 
         $stmt = $this->connect()->prepare($sql);
 
@@ -20,7 +20,7 @@ class CharactersModel extends DbConnect{
 
     public function getCharacterOfChoice($id){
 
-        $sql = "SELECT *, personnages.*, personnages.id AS character_id FROM personnages INNER JOIN genders ON personnages.gender_id = genders.id INNER JOIN forums ON personnages.forum_id = forums.id WHERE personnages.id = ?";
+        $sql = "SELECT *, personnages.*, personnages.id AS character_id, YEAR(CURDATE()) - personnages.age AS age , mbti.type AS mbti FROM personnages INNER JOIN genders ON personnages.gender_id = genders.id INNER JOIN forums ON personnages.forum_id = forums.id LEFT JOIN mbti ON personnages.mbti_id = mbti.type WHERE personnages.id = ?";
 
         $stmt = $this->connect()->prepare($sql);
 
@@ -39,6 +39,15 @@ class CharactersModel extends DbConnect{
 
         $stmt->execute([$nom,$prenom,$age,$gender,$forum]);
 
+    }
+
+    public function deleteCharacter($id){
+
+        $sql = "DELETE FROM personnages WHERE id = ?";
+
+        $stmt = $this->connect()->prepare($sql);
+
+        $stmt->execute([$id]);
     }
 
 

@@ -45,6 +45,10 @@ $router->mount('/characters', function() use ($router){
         (new CharacterController)->fetchCharacterOfChoice($characterId);
     });
 
+    $router->delete('/{characterId/delete}', function($characterId){
+        (new CharacterController)->eraseCharacter($characterId);
+    });
+
     $router->post('/add', function(){
         $payload = json_decode(file_get_contents('php://input'), true);
         $res = (new CharacterValidator($payload))->validateCharacter();

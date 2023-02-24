@@ -7,6 +7,8 @@ const NewThread = () => {
     const [url, setUrl] = useState([]);
     const [chosenMuse, setChosenMuse] = useState([]);
     const [muses, setMuses] = useState([]);
+    const [start, setStart] = useState([]);
+
 
     async function sendForm(){
 
@@ -18,7 +20,8 @@ const NewThread = () => {
                 data: {
                     title: title,
                     url: url,
-                    personnage_id: chosenMuse
+                    personnage_id: chosenMuse,
+                    started: start
                 }
 
             })
@@ -63,6 +66,8 @@ const NewThread = () => {
                 )
             }
             </select>
+            <label htmlFor="started">Start date</label>
+            <input type="date" id="started" name="started" onChange={(e) => setStart(e.target.value)}/>
             <button type="submit" onClick={(e) => sendForm()}>Create character</button>
             </form>  
         </>

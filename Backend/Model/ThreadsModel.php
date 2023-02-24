@@ -18,16 +18,15 @@ class ThreadsModel extends DbConnect{
         return $res;
     }
 
-    public function addThreads($title, $url, $character){
+    public function addThreads($title, $url, $character, $started){
         
-        $sql = "INSERT INTO threads (title,url,personnage_id,created_at) VALUES (?, ?, ?, CURRENT_TIMESTAMP())";
+        $sql = "INSERT INTO threads (title,url,personnage_id, started_at, created_at) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP())";
         
         $stmt = $this->connect()->prepare($sql);
 
-        $stmt->execute([$title,$url,$character]);
+        $stmt->execute([$title,$url,$character, $started]);
 
     }
-
 
 
 }

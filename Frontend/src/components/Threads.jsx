@@ -5,6 +5,20 @@ const Threads = () => {
 
     const [threads, setThreads] = useState([]);
 
+    function updateDate(thread,index){
+        console.log(thread);
+        let stat;
+        if (threads[index].todo == 1){
+                stat = 0;
+        } else{
+                stat = 1;  
+        }
+
+        axios.put(`http://localhost:8787/threads/${thread}/update`, {
+            status : stat
+        });
+    }
+
     useEffect(() => 
     async function getThreads(){
 
@@ -34,9 +48,9 @@ const Threads = () => {
                 <tbody>
             {
             threads.map((a,index) => <tr key={index}>
-                <td><a href={a.url} target="_blank">WWW</a> {a.title}</td>
+                <td className={(a.todo === 1) ? "yourturn" : "notyourturn"}><a href={a.url} target="_blank">WWW</a> {a.title}</td>
                 <td>{a.char_name}</td>
-
+                <td><button onClick={(e) => updateDate(a.topic_id, index)}>{(a.todo === 1) ? "Mark as replied" : "Mark as to do"}</button></td>
             </tr>
             )
             }</tbody>

@@ -1,3 +1,6 @@
+@import './_partials/variables';
+
+
 *{
     margin:0;
     padding:0;
@@ -7,9 +10,9 @@
 
 body{
 	background-image:url('./src/assets/background.webp');
+	background-color: $mainColor;
 	background-size:100% auto;
 	min-height:100vh;
-	background-color:rgba(71, 71, 71, 0.373);
 }
 
 table {
@@ -64,7 +67,7 @@ h2 {
 	margin: auto;
 	font-size: 3rem;
 	color: transparent;
-	background-image: linear-gradient(45deg, #0d57e3, rgb(18, 26, 90));
+	background-image: linear-gradient(45deg, $thirdColor, $accentColor);
 	background-clip: text;
 	-webkit-background-clip: text;
 }
@@ -209,4 +212,13 @@ button {
 	border-radius: 0.4rem;
 	/* border: 1px solid rgba(255, 255, 255, 0.5); */
 	/* aspect-ratio: 5; */
+}
+
+.yourturn{
+	background-color:green;
+}
+
+.notyourturn{
+	background-color:rgb(56, 56, 56);
+	opacity:0.4;
 }

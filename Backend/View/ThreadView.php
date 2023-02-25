@@ -9,4 +9,8 @@ class ThreadView extends ThreadsModel{
 
         (new ThreadsModel())->addThreads($json['title'],$json['url'],intval($json['personnage_id']), $json['started']);
     }
+
+    public function updateThread($thread, $json){
+        (new ThreadsModel())->updateDate($thread, $json["status"]);
+    }
 }

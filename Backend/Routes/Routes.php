@@ -6,6 +6,7 @@ use App\Controller\GendersController;
 use App\Controller\CharacterController;
 use App\Controller\ForumsController;
 use App\Controller\ThreadsController;
+use App\View\ThreadView;
 
 use App\Validators\CharacterValidator;
 use App\Validators\ThreadValidator;
@@ -81,6 +82,11 @@ $router->mount('/threads', function() use ($router){
         $payload = json_decode(file_get_contents('php://input'), true);
         $res = (new ThreadValidator($payload))->validateThread();
         return $res;
+    });
+
+    $router->put('/{threadId}/update', function($threadId){
+        $payload = json_decode(file_get_contents('php://input'), true);
+        (new ThreadView)->updateThread($threadId, $payload);
     });
 });
 
